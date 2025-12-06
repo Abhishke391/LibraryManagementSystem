@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using LibraryApi.Data;
 using LibraryApi.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -36,6 +37,8 @@ public class BooksController : ControllerBase
     public async Task<ActionResult<Book>> CreateBook(Book book)
     {
         if(!ModelState.IsValid) return BadRequest(ModelState);
+        var userEmail = User.FindFirst(ClaimTypes.Email)?.Value;
+        book.CreatedBy = userEmail ?? "System";
         _context.Books.Add(book);
         await _context.SaveChangesAsync();
 

@@ -17,7 +17,7 @@ export default function Login() {
             toast.success("Registration successful");
             navigate("/");
         } catch (error:any) {
-            toast.error("Registration failed");
+            // toast.error("Registration failed");
             const message = error instanceof Error ? error.message : String(error);
             if(message === "Unauthorized") {
                 toast.error("Invalid credentials.");

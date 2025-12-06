@@ -1,6 +1,7 @@
 import { createContext, useContext, useState } from "react";
 import axiosInstance from "../services/AxiosInstance";
-
+import type { AuthResponse } from "../types";
+import axios from "axios";
 
 interface AuthContextType {
     user: string | null;
@@ -16,7 +17,7 @@ export const AouthProvider = ({ children }: { children: React.ReactNode }) => {
 
     const login = async (email: string, password: string) => {
         try {
-            const res = await axiosInstance.post("/auth/login", {email, password});
+            const res = await axiosInstance.post<AuthResponse>("/auth/login", {email, password});
             localStorage.setItem('token', res.data.token);
             localStorage.setItem('user', res.data.email);
             setUser(res.data.email);
@@ -34,7 +35,9 @@ export const AouthProvider = ({ children }: { children: React.ReactNode }) => {
 
     const register = async (email: string, password: string) => {
         try {
+            // console.log("Registering user:", email);
             const res = await axiosInstance.post('/auth/register', {email, password});
+            // console.log("Registration response:", res);
             localStorage.setItem('token', res.data.token);
             localStorage.setItem('user', res.data.email);
             setUser(res.data.email);

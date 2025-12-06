@@ -37,8 +37,8 @@ public class BooksController : ControllerBase
     public async Task<ActionResult<Book>> CreateBook(Book book)
     {
         if(!ModelState.IsValid) return BadRequest(ModelState);
-        var userEmail = User.FindFirst(ClaimTypes.Email)?.Value;
-        book.CreatedBy = userEmail ?? "System";
+        // var userEmail = User.FindFirst(ClaimTypes.Email)?.Value;
+        // book.CreatedBy = userEmail ?? "System";
         _context.Books.Add(book);
         await _context.SaveChangesAsync();
 

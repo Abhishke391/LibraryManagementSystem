@@ -7,6 +7,6 @@ public class Book
     public required string Author { get; set; }
     public string? Description { get; set; }
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-    public string CreatedBy {get; set;} = "Unknown";
+    // public string CreatedBy {get; set;} = "Unknown";
 
 }

@@ -215,3 +215,4 @@
 /Users/pulasthiabishake/Desktop/LibraryManagementSystem/backend/LibraryApi/obj/Debug/net10.0/LibraryApi.pdb
 /Users/pulasthiabishake/Desktop/LibraryManagementSystem/backend/LibraryApi/obj/Debug/net10.0/LibraryApi.genruntimeconfig.cache
 /Users/pulasthiabishake/Desktop/LibraryManagementSystem/backend/LibraryApi/obj/Debug/net10.0/ref/LibraryApi.dll
+/Users/pulasthiabishake/Desktop/LibraryManagementSystem/backend/LibraryApi/obj/Debug/net10.0/LibraryApi.sourcelink.json

@@ -1,0 +1,39 @@
+# Build outputs (ignore bin/ and obj/ in any project)
+bin/
+obj/
+**/bin/
+**/obj/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Visual Studio / IDE
+.vs/
+*.vscode/
+
+# Rider/IDEA
+.idea/
+
+# NuGet and packages
+*.nupkg
+packages/
+
+# Local DB (SQLite) and other DB files
+*.db
+library.db
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Tooling
+dotnet-tools.json
+
+# Generated source files
+*.g.cs

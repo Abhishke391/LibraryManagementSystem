@@ -15,17 +15,39 @@ export const AouthProvider = ({ children }: { children: React.ReactNode }) => {
     const [user, setUser] = useState<string | null>(localStorage.getItem('user'));
 
     const login = async (email: string, password: string) => {
-        const res = await axiosInstance.post("/auth/login", {email, password});
-        localStorage.setItem('token', res.data.token);
-        localStorage.setItem('user', res.data.email);
-        setUser(res.data.email);
+        try {
+            const res = await axiosInstance.post("/auth/login", {email, password});
+            localStorage.setItem('token', res.data.token);
+            localStorage.setItem('user', res.data.email);
+            setUser(res.data.email);
+        } catch (error: any) {
+            if (error?.response?.status) {
+                const status = error.response.status;
+                if (status === 404) throw new Error("User not found.");
+                if (status === 401) throw new Error("Invalid credentials.");
+                throw new Error(error.response.data?.message ?? "Login failed.");
+            }
+            throw new Error("Login failed.");
+        }
+        
     }
 
     const register = async (email: string, password: string) => {
-        const res = await axiosInstance.post('/auth/register', {email, password});
-        localStorage.setItem('token', res.data.token);
-        localStorage.setItem('user', res.data.email);
-        setUser(res.data.email);
+        try {
+            const res = await axiosInstance.post('/auth/register', {email, password});
+            localStorage.setItem('token', res.data.token);
+            localStorage.setItem('user', res.data.email);
+            setUser(res.data.email);
+        } catch (error: any) {
+            if (error?.response?.status) {
+                const status = error.response.status;
+                if (status === 404) throw new Error("User not found.");
+                if (status === 401) throw new Error("Invalid credentials.");
+                throw new Error(error.response.data?.message ?? "Registration failed.");
+            }
+            throw new Error("Registration failed.");
+        }
+        
     }
 
     const logout = () => {

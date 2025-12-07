@@ -1,14 +1,3 @@
-
-/// <summary>
-/// RESTful API controller for Book CRUD operations
-/// GET /api/books - Public: Returns all books (shared library catalog)
-/// GET /api/books/{id} - Public: Returns single book
-/// POST /api/books/create - Requires login: Creates new book
-/// PUT /api/books/update/{id} - Requires login: Updates existing book
-/// DELETE /api/books/delete/{id} - Requires login: Deletes book
-/// Uses async/await for non-blocking I/O and proper HTTP status codes
-/// </summary>
-
 using System.Security.Claims;
 using LibraryApi.Data;
 using LibraryApi.Models;
@@ -17,6 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace LibraryApi.Controllers;
+
+/// <summary>
+/// RESTful API controller for Book CRUD operations
+/// Uses async/await for non-blocking I/O and proper HTTP status codes
+/// </summary>
 
 [ApiController]
 [Route("api/[controller]")]
@@ -29,13 +23,21 @@ public class BooksController : ControllerBase
         _context = context;
     }
 
+    /// <summary>
+    /// GET /api/books - Public: Returns all books (shared library catalog)
+    /// </summary>
     [HttpGet]
+    [AllowAnonymous]
     public async Task<ActionResult<IEnumerable<Book>>> GetBooks()
     {
         return await _context.Books.OrderBy(b => b.Title).ToListAsync();
     }
 
+    /// <summary>
+    /// GET /api/books/{id} - Public: Returns single book by ID
+    /// </summary>
     [HttpGet("{id}")]
+    [AllowAnonymous]
     public async Task<ActionResult<Book>> GetBook(int id)
     {
         var book = await _context.Books.FindAsync(id);
@@ -43,6 +45,9 @@ public class BooksController : ControllerBase
         return book;
     }
 
+    /// <summary>
+    /// POST /api/books/create - Requires login: Creates new book
+    /// </summary>
     [Authorize]
     [HttpPost("create")]
     public async Task<ActionResult<Book>> CreateBook(Book book)
@@ -56,6 +61,9 @@ public class BooksController : ControllerBase
         return CreatedAtAction(nameof(GetBook), new {id = book.Id}, book);
     }
 
+    /// <summary>
+    /// PUT /api/books/update/{id} - Requires login: Updates existing book
+    /// </summary>
     [Authorize]
     [HttpPut("update/{id}")]
     public async Task<IActionResult> UpdateBook(int id, Book book)
@@ -79,6 +87,9 @@ public class BooksController : ControllerBase
         return _context.Books.Any(e => e.Id == id);
     }
 
+    /// <summary>
+    /// DELETE /api/books/delete/{id} - Requires login: Deletes book
+    /// </summary>
     [Authorize]
     [HttpDelete("delete/{id}")]
     public async Task<IActionResult> DeleteBook(int id)

@@ -1,12 +1,3 @@
-
-/// <summary>
-/// Handles user registration and login
-/// POST /api/auth/register - Creates new user with BCrypt hashed password
-/// POST /api/auth/login - Validates credentials and returns JWT token (valid 7 days)
-/// JWT contains user Id and Email claims
-/// Passwords are never stored in plain text
-/// </summary>
-
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -18,6 +9,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
 namespace LibraryApi.Controllers;
+
+/// <summary>
+/// Handles user registration and login
+/// POST /api/auth/register - Creates new user with BCrypt hashed password
+/// POST /api/auth/login - Validates credentials and returns JWT token (valid 7 days)
+/// JWT contains user Id and Email claims
+/// Passwords are never stored in plain text
+/// </summary>
 
 [ApiController]
 [Route("api/[controller]")]
@@ -32,11 +31,25 @@ public class AuthController : ControllerBase
         _configuration = configuration;
     }
 
+    /// <summary>
+    /// Record types for register request, expects email and password
+    /// </summary>
     public record RegisterRequest(string Email, string Password);
+
+    /// <summary>
+    /// Record types for login request, expects email and password
+    /// </summary>
     public record LoginRequest(string Email, string Password);
+
+    /// <summary>
+    /// Record type for authentication response, contains JWT token and user email
+    /// </summary>
     public record AuthResponse(string Token, string Email);
 
 
+    /// <summary>
+    /// POST /api/auth/register - Creates new user with BCrypt hashed password
+    /// </summary>
     [HttpPost("register")]
     [AllowAnonymous]
     public async Task<ActionResult<AuthResponse>> Register(RegisterRequest request)
@@ -56,6 +69,9 @@ public class AuthController : ControllerBase
         return Ok(new AuthResponse(token, user.Email));
     }
 
+    /// <summary>
+    /// POST /api/auth/login - Validates credentials and returns JWT token
+    /// </summary>
     [HttpPost("login")]
     [AllowAnonymous]
     public async Task<ActionResult<AuthResponse>> Login(LoginRequest request)

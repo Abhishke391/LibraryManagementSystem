@@ -1,11 +1,10 @@
+namespace LibraryApi.Models;
 
 /// <summary>
 /// Represents a registered user
 /// Email must be unique
 /// Password is stored as BCrypt hash for security
 /// </summary>
-
-namespace LibraryApi.Models;
 
 public class AppUser
 {

@@ -1,13 +1,12 @@
+using LibraryApi.Models;
+using Microsoft.EntityFrameworkCore;
+namespace LibraryApi.Data;
 
 /// <summary>
 /// Entity Framework Core DbContext
 /// Defines DbSet for Books and Users
 /// Automatically creates SQLite database file (library.db) on first run
 /// </summary>
-
-using LibraryApi.Models;
-using Microsoft.EntityFrameworkCore;
-namespace LibraryApi.Data;
 
 public class LibraryContext : DbContext
 {

@@ -42,3 +42,4 @@ cd ../../frontend
 npm install
 npm run dev
 # → Opens http://localhost:5173
+

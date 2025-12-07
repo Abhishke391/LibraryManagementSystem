@@ -1,23 +1,19 @@
+// Program.cs
+// Entry point of the ASP.NET Core Web API
+// Configures SQLite database with Entity Framework Core
+// Sets up JWT authentication with BCrypt password hashing
+// Enables Swagger for API documentation
+// Configures CORS to allow React frontend[](http://localhost:5173)
+// Uses proper middleware order for security and development
 
-/*
-
-    * Program.cs
-    * Main entry point for the Library API application.
-    * Configure SQLite database with Entity Framework Core.
-    * Sets up JWT authentication with BCrypt password hashing.
-    * Configures CORS policy to allow requests from the React frontend.
-    * Enables Swagger for API documentation in development environment.
-    * Uses proper middleware order for security and development
-
-*/
-
+using System.Reflection;
 using LibraryApi.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 var builder = WebApplication.CreateBuilder(args);
 
-//add cors policy to allow requests from React app
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactApp",
@@ -52,7 +48,18 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new() { Title = "Library Management System API", Version = "v1" });
+
+    // This makes XML comments appear in Swagger
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    if (File.Exists(xmlPath))
+    {
+        c.IncludeXmlComments(xmlPath);
+    }
+});
 
 var app = builder.Build();
 

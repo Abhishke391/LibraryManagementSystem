@@ -1,4 +1,6 @@
 
+namespace LibraryApi.Models;
+
 /// <summary>
 /// Represents a book in the library
 /// Title and Author are required fields
@@ -6,9 +8,6 @@
 /// CreatedAt automatically records when the book was added
 /// Mapped to SQLite table via Entity Framework Core
 /// </summary>
-
-namespace LibraryApi.Models;
-
 public class Book
 {
     public int Id { get; set; }

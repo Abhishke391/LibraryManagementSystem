@@ -1,10 +1,23 @@
+
+/*
+
+    * Program.cs
+    * Main entry point for the Library API application.
+    * Configure SQLite database with Entity Framework Core.
+    * Sets up JWT authentication with BCrypt password hashing.
+    * Configures CORS policy to allow requests from the React frontend.
+    * Enables Swagger for API documentation in development environment.
+    * Uses proper middleware order for security and development
+
+*/
+
 using LibraryApi.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 var builder = WebApplication.CreateBuilder(args);
 
-
+//add cors policy to allow requests from React app
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactApp",
@@ -17,9 +30,11 @@ builder.Services.AddCors(options =>
         });
 });
 
+//register the DbContext with SQLite
 builder.Services.AddDbContext<LibraryContext>(options => 
     options.UseSqlite("Data Source=library.db"));
 
+//configure jwt authentication
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -41,12 +56,14 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+//ensure database is created
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<LibraryContext>();
     db.Database.EnsureCreated();
 }
 
+//configure swagger for api documentation
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

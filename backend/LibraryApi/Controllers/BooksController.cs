@@ -1,3 +1,14 @@
+
+/// <summary>
+/// RESTful API controller for Book CRUD operations
+/// GET /api/books - Public: Returns all books (shared library catalog)
+/// GET /api/books/{id} - Public: Returns single book
+/// POST /api/books/create - Requires login: Creates new book
+/// PUT /api/books/update/{id} - Requires login: Updates existing book
+/// DELETE /api/books/delete/{id} - Requires login: Deletes book
+/// Uses async/await for non-blocking I/O and proper HTTP status codes
+/// </summary>
+
 using System.Security.Claims;
 using LibraryApi.Data;
 using LibraryApi.Models;

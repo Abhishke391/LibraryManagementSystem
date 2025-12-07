@@ -1,3 +1,12 @@
+
+/// <summary>
+/// Handles user registration and login
+/// POST /api/auth/register - Creates new user with BCrypt hashed password
+/// POST /api/auth/login - Validates credentials and returns JWT token (valid 7 days)
+/// JWT contains user Id and Email claims
+/// Passwords are never stored in plain text
+/// </summary>
+
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;

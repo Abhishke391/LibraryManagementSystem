@@ -5,14 +5,8 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import { Toaster } from 'react-hot-toast';
-import type { JSX } from 'react/jsx-dev-runtime';
 
 const queryClient = new QueryClient();
-
-function ProtectedRoute({ children }: { children: JSX.Element }) {
-  const { user } = useAuth();
-  return user ? children : <Navigate to="/login" />;
-}
 
 function AppContent() {
   const { user } = useAuth();
@@ -22,14 +16,7 @@ function AppContent() {
       <Routes>
         <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />
         <Route path="/register" element={user ? <Navigate to="/" /> : <Register />} />
-        <Route
-          path="/"
-          element={
-            <ProtectedRoute>
-              <Home />
-            </ProtectedRoute>
-          }
-        />
+        <Route path="/" element={<Home />} />
       </Routes>
       <Toaster position="top-right" />
     </>

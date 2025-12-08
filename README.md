@@ -1,6 +1,6 @@
 # Library Management System – Expernetic Internship Assignment
 
-Full-stack Library Management System built with **ASP.NET Core 8** and **React 19 + TypeScript**.
+Full-stack Library Management System built with **ASP.NET Core 10** and **React 19 + TypeScript**.
 
 ## Features Delivered
 - Complete Book CRUD operations (Create · Read · Update · Delete)
@@ -14,13 +14,13 @@ Full-stack Library Management System built with **ASP.NET Core 8** and **React 1
 
 ## Tech Stack
 **Backend**  
-ASP.NET Core 8 · Entity Framework Core 8 · SQLite · JWT · BCrypt · Swagger + XML comments  
+ASP.NET Core 10 · Entity Framework Core 10 · SQLite · JWT · BCrypt · Swagger + XML comments  
 
 **Frontend**  
 React 19 · TypeScript · Vite · Tailwind CSS v4 · React Query · Axios · React Hot Toast
 
 ## Prerequisites (one-time only)
-- [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
+- [.NET 10 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/10.0)
 - [Node.js 20 or newer](https://nodejs.org)
 
 
